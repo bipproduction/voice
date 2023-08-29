@@ -30,8 +30,8 @@ export default function ViewSpech() {
     }, [])
 
     useShallowEffect(() => {
-        if (transcript.split(' ').includes("answer")) {
-            const message = transcript.replace('answer', '')
+        if (transcript.split(' ').includes("oke")) {
+            const message = transcript.replace('oke', '')
             setAsk(message)
             setLoading(true)
             try {
@@ -95,9 +95,10 @@ export default function ViewSpech() {
                                 }} disabled={!listening}>Stop</Button>
                                 {/* <Button onClick={resetTranscript}>Reset</Button> */}
                             </Flex>
-                            {/* <Textarea value={} h={300} minRows={10} onChange={() => { }} /> */}
+                            <Text fs={"italic"}>Triger Answer Use [ oke ]</Text>
                             {loading ? <Center><Loader /></Center> : null}
-                            <Text p={"md"} size={24} c={"cyan"}>{transcript}</Text>
+                            <Text p={"md"} size={24} c={"cyan"}>{transcript.replace("oke", "")}</Text>
+
                         </Stack>
                     </Paper>
                 </Group>

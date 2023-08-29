@@ -32,8 +32,12 @@ export default function RootStyleRegistry({ children }: { children: React.ReactN
     const usrId = await getUserId()
 
     onChildChanged(ref(fdb, `voice/chat/${usrId}`), (val) => {
-      console.log(val.val())
-      setChat(val.val())
+      try {
+        const jawaban = val.val().replace('ChatGPT', 'BIP AI').replace("OpenAI", "Wibu Dev")
+        setChat(jawaban)
+      } catch (error) {
+
+      }
     })
 
     return onValue(ref(fdb, `voice/chat/${usrId}/text`), (val) => {
