@@ -16,6 +16,7 @@ export default function ViewSpech() {
     const [client, setClient] = useState(false)
     const { value: chat, set: setChat } = useHookstate(val_chat)
     const [loading, setLoading] = useState(false)
+    const [ask, setAsk] = useState("")
 
     const {
         transcript,
@@ -29,8 +30,9 @@ export default function ViewSpech() {
     }, [])
 
     useShallowEffect(() => {
-        if (transcript.includes("answer")) {
+        if (transcript.split(' ').includes("answer")) {
             const message = transcript.replace('answer', '')
+            setAsk(message)
             setLoading(true)
             try {
                 recorderState?.saveRecording()
@@ -39,9 +41,6 @@ export default function ViewSpech() {
                 console.log("mic sudah mati")
             }
 
-            // sendMessage(transcript.replace('answer', '')).then(v => {
-            //     setLoading(false)
-            // })
             fetch('/api/completion', {
                 method: "POST",
                 body: JSON.stringify({ message }),
@@ -50,11 +49,11 @@ export default function ViewSpech() {
                 }
             }).then((v) => {
                 if (v.status === 201) {
-                    // toast('success')
                     setLoading(false)
+                    resetTranscript()
                 }
             })
-            resetTranscript()
+
         }
     }, [transcript])
 
@@ -62,7 +61,7 @@ export default function ViewSpech() {
 
     return (<>
         <Stack align="center">
-            <Stack maw={720} >
+            <Stack >
                 <Stack>
                     <Title>
                         BIP VOICE AI
@@ -70,9 +69,9 @@ export default function ViewSpech() {
                     <Text>Wibu dev</Text>
                 </Stack>
                 <Group position={"center"}>
-                    <Paper bg={"gray.0"} shadow="sm">
+                    <Paper bg={"gray.0"} shadow="sm" w={720}>
                         <Stack align="center"  >
-                            <Box p={"lg"} bg={"gray.2"} >
+                            <Box p={"lg"} bg={"gray.2"} w={"100%"} >
                                 <Center>
                                     <WaveformAudioRecorder setRecorderState={setRecorderState} />
                                 </Center>
@@ -104,6 +103,7 @@ export default function ViewSpech() {
                 </Group>
                 <Paper w={720}>
                     <Stack bg={"gray.1"}>
+                        <Text p={"md"} fw={"bold"}>{ask}</Text>
                         <Text p={"md"} mah={360} w={"100%"}>
                             {chat}
                         </Text>
