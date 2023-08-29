@@ -2,6 +2,7 @@
 import { getUserId } from '@/app_modules';
 import { val_chat } from '@/app_modules/val/chat';
 import fdb from '@/util/firebase_config';
+import ViewViewPort from '@/util/view_port';
 import { CacheProvider } from '@emotion/react';
 import { useHookstate } from '@hookstate/core';
 import { MantineProvider, useEmotionCache } from '@mantine/core';
@@ -54,7 +55,9 @@ export default function RootStyleRegistry({ children }: { children: React.ReactN
   return (
     <CacheProvider value={cache}>
       <MantineProvider withGlobalStyles withNormalizeCSS>
-        {children}
+        <ViewViewPort>
+          {children}
+        </ViewViewPort>
       </MantineProvider>
     </CacheProvider>
   );
