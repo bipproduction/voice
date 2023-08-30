@@ -97,7 +97,7 @@ export default function ViewSpech() {
                             </Flex>
                             <Text fs={"italic"}>Triger Answer Use [ oke ]</Text>
                             {loading ? <Center><Loader /></Center> : null}
-                            <Text p={"md"} size={24} c={"cyan"}>{transcript.replace("oke", "")}</Text>
+                            <Text p={"md"} size={24} c={"cyan"}>{transcript.replace("answer", "")}</Text>
 
                         </Stack>
                     </Paper>
