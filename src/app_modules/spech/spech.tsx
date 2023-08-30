@@ -30,8 +30,8 @@ export default function ViewSpech() {
     }, [])
 
     useShallowEffect(() => {
-        if (transcript.split(' ').includes("oke")) {
-            const message = transcript.replace('oke', '')
+        if (transcript.split(' ').includes("answer")) {
+            const message = transcript.replace('answer', '')
             setAsk(message)
             setLoading(true)
             try {
